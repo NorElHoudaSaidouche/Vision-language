@@ -13,6 +13,7 @@ import numpy as np
 # Téléchargement du dataset
 download('http://cedric.cnam.fr/~thomen/cours/US330X/flickr_8k_train_dataset.txt', "flickr_8k_train_dataset.txt")
 
+# Chargement des données d'entraînement
 filename = 'flickr_8k_train_dataset.txt'
 df = pd.read_csv(filename, delimiter='\t')
 nb_samples = df.shape[0]
@@ -23,11 +24,13 @@ nbwords = 0
 
 for i in range(nb_samples):
     x = iter_w.__next__()
+    # Diviser la légende en mots
     cap_words = x[1][1].split()
+    # Supprimer les majuscules
     cap_wordsl = [w.lower() for w in cap_words]
     nbwords += len(cap_wordsl)
     for w in cap_wordsl:
-        if (w in bow):
+        if w in bow:
             bow[w] = bow[w] + 1
         else:
             bow[w] = 1
@@ -45,6 +48,7 @@ plt.figure(dpi=300)
 plt.xticks(rotation=90, fontsize=3)
 plt.ylabel('Word Frequency')
 plt.bar(x_axis, freqnc[0:100])
+plt.show()
 
 # Téléchargement du dataset
 download('http://cedric.cnam.fr/~thomen/cours/US330X/Caption_Embeddings.p', "Caption_Embeddings.p")
