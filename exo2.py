@@ -8,9 +8,14 @@ import _pickle as pickle
 import pandas as pd
 from divers import *
 
-# Récupération de la liste des mots
-outfile = 'Caption_Embeddings.p'
+
+# Données d'entraînement
+nbkeep = 1000
+outfile = "Caption_Embeddings_" + str(nbkeep) + ".p"
 [listwords, embeddings] = pickle.load(open(outfile, "rb"))
+indexwords = {}
+for i in range(len(listwords)):
+    indexwords[listwords[i]] = i
 
 filename = 'flickr_8k_train_dataset.txt'
 df = pd.read_csv(filename, delimiter='\t')
@@ -38,14 +43,6 @@ for caption in caps:
             maxLCap = l
 
 print("max caption length =" + str(maxLCap))
-
-# Données d'entraînement
-nbkeep = 1000
-outfile = "Caption_Embeddings_" + str(nbkeep) + ".p"
-[listwords, embeddings] = pickle.load(open(outfile, "rb"))
-indexwords = {}
-for i in range(len(listwords)):
-    indexwords[listwords[i]] = i
 
 # Chargement des features des images
 download('http://cedric.cnam.fr/~thomen/cours/US330X/encoded_images_PCA.p', "encoded_images_PCA.p")

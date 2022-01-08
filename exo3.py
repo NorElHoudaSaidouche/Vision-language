@@ -11,7 +11,7 @@ from keras.optimizers import Adam
 
 from divers import *
 
-SEQLEN = 39
+SEQLEN = 35
 taille_chars = 202
 HSIZE = 100
 model = Sequential()
